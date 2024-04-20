@@ -1,0 +1,13 @@
+.text{
+    width: 80vw;
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text textarea {
+    width: 100%;
+    height: 40px;
+    height: 50vh
+}
