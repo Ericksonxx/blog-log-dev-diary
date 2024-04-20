@@ -1,7 +1,16 @@
 import {useState, useEffect} from 'react'
 import './Sidenav.css'
+import supabase from '../../utils/supabase'
+
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { logIn, logOut, getUser } from '../../features/auth/authSlice'
+
+
 export default function Sidenav() {
     const [open, setOpen] = useState(false)
+
+    const logs = useAppSelector(state => state)
+    const dispatch = useAppDispatch() 
 
     useEffect(() => {
         if (open) {
@@ -11,6 +20,10 @@ export default function Sidenav() {
         }
     }, [open])
 
+    //if logs....
+
+
+
     return (
         <div className='sidenav-container'>
             <div className={open ? 'sidenav open' : 'sidenav'} onClick={() => setOpen(false)} />
@@ -19,7 +32,7 @@ export default function Sidenav() {
                     <button onClick={() => setOpen(!open)}>X</button>
                 </div>
                 <div className='sidenav-body'>
-                    Text here
+                    {}
                 </div>
             </div>
         </div>
