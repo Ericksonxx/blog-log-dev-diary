@@ -1,10 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-interface TaskState {
-    title: string
-    undertitle: string
-    text: string
-}
 
 const taskSlice = createSlice({
     name: 'task',
