@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { startTimer, stopTimer, tick, resetTimer } from '../../features/timer/timerSlice'
+//TODO: add resetTimer
+import { startTimer, stopTimer, tick } from '../../features/timer/timerSlice'
 import './Timer.css'
 
 
@@ -27,6 +28,7 @@ export default function Title() {
                     :
                     <button onClick={() => dispatch(startTimer())}>Start</button>
                 }
+                
 
             </div>
         </>

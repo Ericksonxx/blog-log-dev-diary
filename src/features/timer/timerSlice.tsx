@@ -1,11 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-interface TimeState {
-    hours: number
-    minutes: number
-    seconds: number
-    isRunning: boolean
-}
 
 const timerSlice = createSlice({
     name: 'timer',
