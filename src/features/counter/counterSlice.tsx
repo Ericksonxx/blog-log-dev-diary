@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 const taskSlice = createSlice({
     name: 'task',
     initialState: {
+        user_id: '',
         title: 'Undefined Task',
         undertitle: 'Not Set',
         text: 'Write here....',

@@ -1,8 +1,39 @@
-.sidenav-container{
+.sidenav .open{
     position: absolute;
     top:0;
     left:0;
-    width: 10vw;
+    width: 20vw;
     height: 100vh;
     background-color: black;
+    overflow-y: scroll;
+    position: fixed
+}
+
+.closed{
+    display:none
+}
+
+.sidenav-body{
+    margin: 15%;
+}
+
+.object-log{
+    background-color: rgb(18, 19, 30);
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px rgba(86, 86, 86, 0.2);
+}
+
+.object-log-title{
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top:-0px;
+}
+
+.object-log-undertitle{
+    font-weight: 200;
+    font-size: 0.8rem;
+    margin-top: -15px
 }

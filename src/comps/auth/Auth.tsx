@@ -18,13 +18,11 @@ export default function Auth() {
     const [password, setPassword] = useState('')
 
     //check for user
-    async function checkUser() {
+    async function checkUser() {  
         const { data: { user } } = await supabase.auth.getUser()
-            if(user) {
-                dispatch(getUser(user.id))
-            } else {
-                getUser('')
-            }
+        if(user?.id !== null) {
+            dispatch(getUser(user))
+        }
     }
     
     useEffect(() => {
@@ -46,10 +44,13 @@ export default function Auth() {
         if(error) {
             console.log(error)
         } else if (data){
-            getUser(data?.user?.id)
-            console.log(user.id)
+            if(data) {
+                dispatch(logIn(data.user))
+            }
         }
     }
+
+    console.log(user)
 
     if(user.logged === false) {
         console.log(user)

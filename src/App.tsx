@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 //import components
@@ -11,32 +11,50 @@ import supabase from './utils/supabase'
 
 
 //redux
-import { useAppSelector, useAppDispatch } from './app/hooks'
-import { getUser } from './features/auth/authSlice.tsx'
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { getUser } from './features/auth/authSlice'
+export interface Log {
+  id: string,
+  title: string
+  undertitle: string
+  text: string
+  user_id: string
+}
 
 function AppHome() {
+  
   //redux access
-  const task = useAppSelector(state => state)
+  const task = useAppSelector(state => state.task)
+  const currentTask = useAppSelector(state => state.currentTask)
   const user = useAppSelector(state => state.user)
-  const dispatch = useAppDispatch() 
+  const dispatch = useAppDispatch()
 
-  //load all logs when app loads
+  //get user 
   useEffect(() => {
-    readLogs()
-    console.log(user.id)
-  }, [])
+    checkUser()
+  })
+  
+  async function checkUser() {  
+    const { data: { user } } = await supabase.auth.getUser()
+    if(user?.id !== null) {
+        dispatch(getUser(user))
+        readLogs({userId: user?.id})
+    }
+  }
+  
+  const [logs, setLogs] = useState<Log[]>([])
 
-  console.log(task)
 
-  async function readLogs() {
+  async function readLogs({userId}: {userId: string | undefined}) {
     let { data: logs, error } = await supabase
     .from('logs')
     .select('*')
+    .eq('user_id', userId)
 
     if(error) {
       console.log(error)
     } else {
-      console.log(logs)
+      setLogs(logs as Log[])
     }
   }
 
@@ -46,27 +64,48 @@ function AppHome() {
     const { data, error } = await supabase
     .from('logs')
     .insert([
-      { title: task.task.title, undertitle: task.task.undertitle, text: task.task.text, user_id: task.user.id },
+      { title: task.title, undertitle: task.undertitle, text: task.text, user_id: user.id },
     ])
     .select()
     if(error) {
       console.log(error)
     } else {
-      console.log(data)
-      readLogs()
+      readLogs({userId: user.id})
     }
   }
 
+  async function updateLog() {
+    const { data, error } = await supabase
+    .from('logs')
+    .update({ title: currentTask.title, undertitle: currentTask.undertitle, text: currentTask.text })
+    .eq('id', currentTask.id)
+    .select()
+    if(error) {
+      console.log(error)
+    } else {
+      console.log(data)
+      readLogs({userId: user.id})
+    }
+  }
+
+  //TODO: add delete function
+  //TODO: add update/create restrictions
+
+  
   return (
     <>
-      <Sidenav />
-      <div>
+      <Sidenav logs={logs} />
+      <div className='main-screen'>
         <Timer />
         <Title />
         <Undertitle />
         <Text />
         <div>
-          <button onClick={() => saveLog()}>SAVE</button>
+          {currentTask.id === '' ?
+            <button onClick={() => saveLog()}>SAVE</button>
+            :
+            <button onClick={() => updateLog()}>UPDATE</button>
+        }
         </div>
       </div>
     </>
