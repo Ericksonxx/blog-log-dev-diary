@@ -10,3 +10,17 @@
     height: 40px;
     height: 50vh
 }
+
+.text-editor{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.ProseMirror{
+    background-color: rgb(18, 19, 30);
+    min-height: 45vh;
+    max-height: 100vh;
+    overflow-y: scroll;
+    padding: 10px;
+    outline: none !important;
+}

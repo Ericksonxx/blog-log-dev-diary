@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { setText } from '../../features/counter/counterSlice'
 import './Text.css'
 import { useEffect, useState } from 'react'
 import { setCurrentTask } from '../../features/currentTask/currentTaskSlice'
 import Tiptap from '../tiptap/tiptap'
+
 export default function Title() {
 
     const task = useAppSelector(state => state.task)
@@ -25,7 +25,9 @@ export default function Title() {
 
     return (
         <>
-            <Tiptap />
+            <div className='text-editor'>
+            <Tiptap content={currentTask.text} />
+            </div>
         </>
     )
 }

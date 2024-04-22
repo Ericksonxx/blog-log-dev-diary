@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const currentTaskSlice = createSlice({
     name: 'currentTask',
@@ -11,15 +11,19 @@ const currentTaskSlice = createSlice({
     },
     reducers: {
        setCurrentTask(state, action) {
-           state.id = action.payload.id
-           state.title = action.payload.title
-           state.undertitle = action.payload.undertitle
-           state.text = action.payload.text
-           state.user_id = action.payload.user_id
+           const { id, title, undertitle, text, user_id } = action.payload;
+           return {
+               ...state,
+               id,
+               title,
+               undertitle,
+               text,
+               user_id
+           };
        },
     }
-})
+});
 
-export const { setCurrentTask } = currentTaskSlice.actions
+export const { setCurrentTask } = currentTaskSlice.actions;
 
-export default currentTaskSlice.reducer
+export default currentTaskSlice.reducer;

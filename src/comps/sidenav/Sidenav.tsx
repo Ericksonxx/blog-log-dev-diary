@@ -3,6 +3,7 @@ import './Sidenav.css'
 import Log from '../../App'
 import { setCurrentTask } from '../../features/currentTask/currentTaskSlice.tsx'
 import { useAppSelector, useAppDispatch } from '../../app/hooks.ts'
+import { setText } from '../../features/counter/counterSlice'
 
 export interface Log {
     id: string,
@@ -19,7 +20,9 @@ export default function Sidenav({logs}: {logs: Log[]}) {
     const [open, setOpen] = useState(true)
 
     async function updateCurrentTask(log ?: Log) {
-        dispatch(setCurrentTask(log))
+        dispatch(setCurrentTask({text: log?.text, title: log?.title, undertitle: log?.undertitle, id: log?.id, user_id: log?.user_id}))
+        setText({text: log?.text})
+        
     }
 
     // function openNav() {
